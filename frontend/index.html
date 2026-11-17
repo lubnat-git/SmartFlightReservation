@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Flight Reservation System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Smart Flight Reservation System</h1>
+        <p>Your journey begins here!</p>
+    </header>
+
+    <nav>
+        <button type="button" onclick="document.getElementById('home').scrollIntoView()">
+            Home
+        </button>
+
+        <button type="button" onclick="document.getElementById('register').scrollIntoView()">
+            Register
+        </button>
+
+        <button type="button" onclick="document.getElementById('login').scrollIntoView()">
+            Login
+        </button>
+
+        <button type="button" onclick="document.getElementById('search').scrollIntoView()">
+            Search Flights
+        </button>
+
+        <button type="button" onclick="document.getElementById('bookings').scrollIntoView()">
+            My Bookings
+        </button>
+
+        <button type="button" onclick="document.getElementById('payment').scrollIntoView()">
+            Payment
+        </button>
+    </nav>
+
+    <section id="home">
+        <h2>Welcome to Smart Flight Reservation</h2>
+
+        <p>
+            Search flights, book tickets and manage your reservations easily.
+        </p>
+    </section>
+
+
+    <!-- USER REGISTRATION -->
+
+    <section id="register">
+
+        <h2>Create an Account</h2>
+
+        <input
+            type="text"
+            id="registerName"
+            placeholder="Full Name">
+
+        <input
+            type="email"
+            id="registerEmail"
+            placeholder="Email">
+
+        <input
+            type="password"
+            id="registerPassword"
+            placeholder="Password">
+
+        <button type="button" onclick="registerUser()">
+            Register
+        </button>
+
+        <p id="registerMessage"></p>
+
+    </section>
+
+
+    <!-- USER LOGIN -->
+
+    <section id="login">
+
+        <h2>Login</h2>
+
+        <input
+            type="email"
+            id="loginEmail"
+            placeholder="Email">
+
+        <input
+            type="password"
+            id="loginPassword"
+            placeholder="Password">
+
+        <button type="button" onclick="loginUser()">
+            Login
+        </button>
+
+        <p id="loginMessage"></p>
+
+    </section>
+
+
+    <!-- FLIGHT SEARCH AND BOOKING -->
+
+    <section id="search">
+
+        <h2>Search Flights</h2>
+
+        <input
+            type="text"
+            id="sourceCity"
+            placeholder="Source City">
+
+        <input
+            type="text"
+            id="destinationCity"
+            placeholder="Destination City">
+
+        <input
+            type="number"
+            id="passengerId"
+            placeholder="Passenger ID">
+
+        <button
+            type="button"
+            id="searchButton"
+            onclick="searchFlights()">
+
+            Search Flights
+
+        </button>
+
+        <div id="flightResults"></div>
+
+    </section>
+
+
+    <!-- BOOKING HISTORY -->
+
+    <section id="bookings">
+
+        <h2>My Bookings</h2>
+
+        <button
+            type="button"
+            onclick="loadBookings()">
+
+            View My Bookings
+
+        </button>
+
+        <div id="bookingResults"></div>
+
+    </section>
+
+
+    <!-- PAYMENT -->
+
+    <section id="payment">
+
+        <h2>Make Payment</h2>
+
+        <input
+            type="number"
+            id="bookingId"
+            placeholder="Booking ID">
+
+        <select id="paymentMode">
+
+            <option value="upi">UPI</option>
+
+            <option value="card">Card</option>
+
+            <option value="netbanking">Net Banking</option>
+
+            <option value="cash">Cash</option>
+
+        </select>
+
+        <button
+            type="button"
+            onclick="makePayment()">
+
+            Pay Now
+
+        </button>
+
+        <p id="paymentMessage"></p>
+
+    </section>
+
+
+    <footer>
+
+        <p>Smart Flight Reservation System | 2026</p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
