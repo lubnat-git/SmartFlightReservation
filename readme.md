@@ -1,684 +1,560 @@
-\# ✈️ AI-Powered Smart Flight Reservation System
+# AI-Powered Smart Flight Reservation and Travel Intelligence Platform
 
+A full-stack flight reservation application enhanced with Generative AI, Retrieval-Augmented Generation (RAG), semantic knowledge retrieval, and an AI-powered flight search agent.
 
+Built using Python, FastAPI, MySQL, HTML, CSS, JavaScript, FAISS, Sentence Transformers, and a locally hosted Qwen3 language model.
 
-A web-based flight reservation application built using Python, FastAPI, MySQL, and JavaScript. The project provides essential flight booking functionality, secure user authentication, booking management, and simulated payment processing, with Generative AI and intelligent travel assistance planned as the next development phase.
+## 1. Project Overview
 
+The Smart Flight Reservation and Travel Intelligence Platform combines traditional flight reservation functionality with AI-powered travel assistance.
 
+Users can register, authenticate, search for flights, reserve seats, make simulated payments, manage bookings, and cancel reservations.
 
-\---
+The platform also provides two AI capabilities:
 
+- **AI Travel Assistant:** Answers travel-related questions using a knowledge base and RAG.
+- **AI Flight Search Agent:** Understands natural-language flight requests and uses controlled Python tools to search and compare available flights.
 
+The project demonstrates practical backend development, database management, API security, automated testing, and applied Generative AI.
 
-\## 📌 1. Project Overview
+## 2. Problem Statement
 
+Traditional reservation workflows require users to navigate multiple operations to find flights, manage bookings, and obtain travel information.
 
+This project aims to provide an integrated application that:
 
-The Smart Flight Reservation System aims to simplify the flight booking process through a centralized web application.
+- Simplifies flight searching and reservations.
+- Provides secure user authentication.
+- Manages seat availability during bookings.
+- Supports booking history and cancellation.
+- Provides simulated payment processing.
+- Answers travel-related questions using retrieved knowledge.
+- Enables natural-language flight search through an AI agent.
 
-
-
-Users can register, log in, search for available flights, reserve seats, make simulated payments, view their booking history, and cancel reservations.
-
-
-
-The long-term vision is to integrate Generative AI, Retrieval-Augmented Generation (RAG), and Agentic AI to provide intelligent travel assistance and conversational flight search.
-
-
-
-\## 🎯 2. Problem Statement
-
-
-
-Traditional flight reservation workflows can involve multiple steps to search for flights, manage reservations, and access travel information.
-
-
-
-This project aims to provide a simple and integrated platform that:
-
-
-
-\- Simplifies flight searching and reservation.
-
-\- Provides secure user authentication.
-
-\- Prevents unauthorized access to bookings.
-
-\- Manages seat availability during reservations.
-
-\- Supports booking cancellation.
-
-\- Provides simulated payment processing.
-
-\- Creates a foundation for AI-powered travel assistance.
-
-
-
-\## 🛠️ 3. Technology Stack
-
-
+## 3. Technology Stack
 
 | Category | Technologies |
-
 |---|---|
-
-| Programming Language | Python |
-
-| Backend Framework | FastAPI |
-
+| Programming Language | Python 3.12 |
+| Backend | FastAPI |
 | Database | MySQL 8.0 |
-
 | Database Connectivity | SQLAlchemy, PyMySQL |
-
+| Database Queries | Parameterized SQL using SQLAlchemy `text()` |
 | Frontend | HTML, CSS, JavaScript |
-
 | Authentication | JWT |
-
 | Password Security | Argon2 |
-
 | API Documentation | Swagger UI |
-
-| API Testing | Postman (planned) |
-
-| Automated Testing | Pytest (planned) |
-
+| API Testing | Postman |
+| Automated Testing | Pytest |
+| LLM Runtime | Ollama |
+| Language Model | Qwen3 1.7B |
+| Embeddings | Sentence Transformers |
+| Embedding Model | all-MiniLM-L6-v2 |
+| Vector Search | FAISS |
+| AI Architecture | RAG and controlled agentic tool calling |
 | Version Control | Git |
-
 | Code Hosting | GitHub |
+| Deployment | Local development; Azure deployment subject to free-resource eligibility |
 
-| AI Integration | Generative AI / LLM (planned) |
+## 4. Implemented Features
 
-| AI Retrieval | RAG, Embeddings, Vector Search (planned) |
+### 4.1 User Authentication
 
-| Cloud Deployment | Microsoft Azure (planned) |
+- User registration and login.
+- Password hashing using Argon2.
+- JWT-based authentication.
+- Protected user-specific endpoints.
+- Input validation for registration and login.
 
+### 4.2 Flight Management
 
+- Retrieve available flights.
+- Search flights using source and destination cities.
+- Display airline and flight information.
+- Display departure and arrival details.
+- Display ticket prices and available seats.
 
-\## ✨ 4. Implemented Features
+### 4.3 Booking Management
 
+- Reserve available flight seats.
+- Automatic seat allocation.
+- Database transaction and row-locking safeguards during booking.
+- Prevent booking when seats are unavailable.
+- View booking history.
+- Cancel existing reservations.
+- Restore seat availability after cancellation.
+- Validate booking ownership for booking-management operations.
 
+### 4.4 Payment Management
 
-\### User Authentication
+- Simulated payment processing.
+- Supported payment modes:
+  - UPI
+  - Card
+  - Net Banking
+  - Cash
+- Booking ownership validation.
+- Duplicate successful payment prevention.
+- Payment status management.
 
-\- User registration.
+**Important:** Payments are simulated. No real money is transferred and no external payment gateway is integrated.
 
-\- User login.
+### 4.5 Generative AI Travel Assistant
 
-\- Secure password hashing using Argon2.
+A conversational travel assistant that answers questions using the application's travel knowledge base.
 
-\- JWT-based authentication.
+Implemented capabilities:
 
-\- Protected API endpoints.
+- Natural-language question handling.
+- Retrieval of relevant travel information.
+- Context-based LLM answer generation.
+- Source references in responses.
+- Fallback when relevant information is unavailable.
+- Empty-input validation.
+- Error handling for LLM service failures.
 
+### 4.6 Retrieval-Augmented Generation (RAG)
 
+The RAG pipeline combines semantic retrieval with a locally hosted language model.
 
-\### Flight Management
+Implemented components:
 
-\- Retrieve available flights.
+- Travel FAQ and policy knowledge documents.
+- Text chunking and preprocessing.
+- Sentence Transformer embeddings.
+- FAISS vector indexing.
+- Similarity-based retrieval.
+- Context filtering using a similarity threshold.
+- Context-grounded answer generation using Qwen3.
 
-\- Search flights using source and destination cities.
+The embedding model is pretrained; this project uses it to generate embeddings rather than training a new machine-learning model.
 
-\- Display airline information.
+### 4.7 Agentic AI Flight Search
 
-\- Display departure and arrival details.
+The AI flight-search agent interprets natural-language requests and selects from a controlled set of Python tools.
 
-\- Display ticket prices and available seats.
+Available tools:
 
+- `search_flights` — searches flights by source and destination.
+- `compare_flights` — compares flight prices.
+- `find_cheapest_flight` — identifies the lowest-priced option.
+- `check_seat_availability` — checks available seats for a flight.
 
+The agent uses Qwen3 through Ollama for tool selection and natural-language responses.
 
-\### Booking Management
+Python validates tool arguments and executes only explicitly permitted tools. The tools reuse the existing application backend and database.
 
-\- Reserve available flight seats.
+**Booking safety:** The AI agent does not independently create bookings, process payments, or cancel reservations. Users must proceed through the existing application booking workflow, which includes authentication, passenger ID validation, and explicit booking confirmation.
 
-\- Automatic seat allocation.
+## 5. System Architecture
 
-\- Prevent booking when seats are unavailable.
+The application follows a client-server architecture with separate AI assistant and AI agent workflows.
 
-\- User-specific booking history.
-
-\- Cancel existing reservations.
-
-\- Restore seat availability after cancellation.
-
-\- Prevent unauthorized access to another user's booking.
-
-
-
-\### Payment Management
-
-\- Simulated payment processing.
-
-\- Supported payment modes:
-
-&#x20; - UPI
-
-&#x20; - Card
-
-&#x20; - Net Banking
-
-&#x20; - Cash
-
-\- Booking ownership validation.
-
-\- Prevent duplicate successful payments.
-
-\- Payment status management.
-
-
-
-\*\*Note:\*\* Payments are simulated. No real money is transferred and no external payment gateway is integrated.
-
-
-
-\## 🧠 5. Planned AI Capabilities
-
-
-
-The following capabilities are part of the next development phase.
-
-
-
-\### Generative AI Travel Assistant
-
-A conversational assistant that will help users understand travel-related information and interact with the flight reservation system.
-
-
-
-\### Retrieval-Augmented Generation (RAG)
-
-A travel knowledge assistant using:
-
-\- Text embeddings.
-
-\- Vector storage.
-
-\- Semantic search.
-
-\- Context retrieval.
-
-\- LLM-based response generation.
-
-
-
-The knowledge base will contain travel FAQs and information about baggage, check-in, cancellation policies, and travel documentation.
-
-
-
-\### Agentic AI Flight Search
-
-An intelligent flight-search agent designed to:
-
-\- Understand natural-language flight requests.
-
-\- Extract source and destination information.
-
-\- Call existing flight-search APIs.
-
-\- Compare available flights.
-
-\- Present suitable flight options.
-
-
-
-Booking and payment actions will require explicit user confirmation.
-
-
-
-\## 🏗️ 6. Project Architecture
-
-
-
-The application follows a client-server architecture.
-
-
+### Application architecture
 
 ```text
-
-&#x20;                USER
-
-&#x20;                  |
-
-&#x20;                  v
-
-&#x20;         FRONTEND APPLICATION
-
-&#x20;            HTML / CSS / JS
-
-&#x20;                  |
-
-&#x20;                  v
-
-&#x20;            FASTAPI BACKEND
-
-&#x20;                  |
-
-&#x20;       +----------+----------+
-
-&#x20;       |          |          |
-
-&#x20;       v          v          v
-
-&#x20;  Authentication Flights  Bookings
-
-&#x20;       |          |          |
-
-&#x20;       +----------+----------+
-
-&#x20;                  |
-
-&#x20;                  v
-
-&#x20;             MYSQL DATABASE
-
-&#x20;                  |
-
-&#x20;                  v
-
-&#x20;           PAYMENT MODULE
-
-&#x20;           (Simulated)
-
+                  USER
+                    |
+                    v
+             FRONTEND
+          HTML / CSS / JS
+                    |
+                    v
+              FASTAPI
+                    |
+       +------------+------------+
+       |            |            |
+       v            v            v
+ Authentication  Flights     Bookings
+       |            |            |
+       +------------+------------+
+                    |
+                    v
+               MYSQL 8.0
+                    |
+                    v
+             Simulated Payments
 ```
 
-
-
-Planned AI integration:
-
-
+### RAG architecture
 
 ```text
-
-&#x20;            USER QUESTION
-
-&#x20;                  |
-
-&#x20;                  v
-
-&#x20;          AI TRAVEL ASSISTANT
-
-&#x20;                  |
-
-&#x20;                  v
-
-&#x20;           RAG PIPELINE
-
-&#x20;                  |
-
-&#x20;           +------+------+
-
-&#x20;           |             |
-
-&#x20;           v             v
-
-&#x20;       EMBEDDINGS    VECTOR SEARCH
-
-&#x20;           |             |
-
-&#x20;           +------+------+
-
-&#x20;                  |
-
-&#x20;                  v
-
-&#x20;             LLM RESPONSE
-
+             USER QUESTION
+                   |
+                   v
+          FASTAPI ASSISTANT API
+                   |
+                   v
+             RAG PIPELINE
+                   |
+                   v
+          SEMANTIC RETRIEVAL
+                   |
+                   v
+             FAISS INDEX
+                   |
+                   v
+          RELEVANT KNOWLEDGE
+                   |
+                   v
+          QWEN3 LANGUAGE MODEL
+                   |
+                   v
+             GROUNDED ANSWER
+                   |
+                   v
+             SOURCE REFERENCES
 ```
 
-
-
-\## 📁 7. Project Structure
-
-
+### Agentic AI architecture
 
 ```text
-
-SmartFlightReservation/
-
-│
-
-├── app/
-
-│   ├── \_\_init\_\_.py
-
-│   ├── main.py
-
-│   ├── database.py
-
-│   ├── security.py
-
-│   ├── schemas.py
-
-│   │
-
-│   └── routes/
-
-│       ├── \_\_init\_\_.py
-
-│       ├── auth.py
-
-│       ├── flights.py
-
-│       ├── bookings.py
-
-│       └── payments.py
-
-│
-
-├── frontend/
-
-│   ├── index.html
-
-│   ├── style.css
-
-│   └── script.js
-
-│
-
-├── .gitignore
-
-├── README.md
-
-└── .env
-
+          NATURAL-LANGUAGE REQUEST
+                    |
+                    v
+             FASTAPI AGENT API
+                    |
+                    v
+             QWEN3 LLM
+                    |
+                    v
+             TOOL SELECTION
+                    |
+                    v
+          PYTHON TOOL VALIDATION
+                    |
+                    v
+          CONTROLLED TOOL EXECUTION
+                    |
+                    v
+          EXISTING BACKEND / MYSQL
+                    |
+                    v
+              TOOL RESULTS
+                    |
+                    v
+             QWEN3 LLM
+                    |
+                    v
+          NATURAL-LANGUAGE RESPONSE
+                    |
+                    v
+             FRONTEND RESULTS
+                    |
+                    v
+        USER-CONTROLLED BOOKING FLOW
 ```
 
+## 6. Architecture Diagrams
 
+Detailed diagrams are maintained separately in the `docs/` directory.
 
-\*\*Security note:\*\* The `.env` file contains local configuration and secrets. It is excluded from version control and must never be uploaded to GitHub.
+- [Overall System Architecture](docs/system-architecture.md)
+- [Database Entity Relationship Diagram](docs/database-er-diagram.md)
+- [RAG Workflow](docs/rag-workflow.md)
+- [Agentic AI Workflow](docs/agent-workflow.md)
 
+These diagrams explain the application's architecture, database relationships, knowledge retrieval process, and controlled AI tool execution.
 
+## 7. Project Structure
 
-\## ⚙️ 8. Installation and Setup
+```text
+Smartflightreservation/
+|
+|-- app/
+|   |-- __init__.py
+|   |-- main.py
+|   |-- database.py
+|   |-- security.py
+|   |-- schemas.py
+|   |
+|   |-- routes/
+|       |-- __init__.py
+|       |-- auth.py
+|       |-- flights.py
+|       |-- bookings.py
+|       |-- payments.py
+|       |-- assistant.py
+|       |-- agent.py
+|
+|-- ai_agent/
+|   |-- agent.py
+|   |-- flight_tools.py
+|
+|-- knowledge_base/
+|   |-- travel_faq.txt
+|   |-- travel_policies.txt
+|   |-- build_embeddings.py
+|   |-- search_knowledge.py
+|   |
+|   |-- vector_store/
+|       |-- chunks.json
+|       |-- knowledge.index
+|
+|-- frontend/
+|   |-- index.html
+|   |-- style.css
+|   |-- script.js
+|
+|-- tests/
+|   |-- conftest.py
+|   |-- test_app.py
+|   |-- test_auth.py
+|   |-- test_bookings.py
+|   |-- test_flights.py
+|   |-- test_payments.py
+|   |-- test_assistant.py
+|   |-- test_agent.py
+|   |-- test_schema.sql
+|
+|-- docs/
+|   |-- system-architecture.md
+|   |-- database-er-diagram.md
+|   |-- rag-workflow.md
+|   |-- agent-workflow.md
+|
+|-- postman/
+|-- .postman/
+|-- rag_pipeline.py
+|-- readme.md
+|-- .gitignore
+|-- .env (local only)
+```
 
+## 8. Installation and Setup
 
+### Prerequisites
 
-\### Prerequisites
+- Python 3.12 or later.
+- MySQL 8.0 or later.
+- Git.
+- Ollama.
+- A modern web browser.
+- Visual Studio Code with Live Server, or another local frontend server.
 
-
-
-\- Python 3.12 or later.
-
-\- MySQL 8.0 or later.
-
-\- Git.
-
-\- Visual Studio Code or another code editor.
-
-\- A modern web browser.
-
-
-
-\### Step 1: Clone the Repository
-
-
+### Step 1: Clone the repository
 
 ```bash
-
 git clone https://github.com/lubnat-git/SmartFlightReservation.git
-
 ```
 
-
-
-\### Step 2: Navigate to the Project
-
-
+### Step 2: Navigate to the project
 
 ```bash
-
 cd SmartFlightReservation
-
 ```
 
-
-
-\### Step 3: Create a Virtual Environment
-
-
+### Step 3: Create and activate a virtual environment
 
 ```bash
-
 python -m venv venv
-
 ```
 
-
-
-Activate it on Windows:
-
-
+Windows PowerShell:
 
 ```powershell
-
-venv\\Scripts\\activate
-
+venv\Scripts\activate
 ```
 
-
-
-\### Step 4: Install Dependencies
-
-
-
-Install the Python packages used by the application:
-
-
+### Step 4: Install Python dependencies
 
 ```bash
-
-pip install fastapi uvicorn sqlalchemy pymysql python-dotenv "pwdlib\[argon2]" PyJWT
-
+python -m pip install fastapi uvicorn sqlalchemy pymysql python-dotenv "pwdlib[argon2]" PyJWT email-validator requests sentence-transformers faiss-cpu pytest
 ```
 
+### Step 5: Configure environment variables
 
+Create a `.env` file in the project root.
 
-\### Step 5: Configure Environment Variables
+Configure the following variables with your own local MySQL and JWT settings:
 
+```env
+DB_HOST=localhost
+DB_USER=your_mysql_username
+DB_PASSWORD=your_mysql_password
+DB_NAME=flight_system
 
+JWT_SECRET_KEY=your_secure_random_secret
+JWT_ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+```
 
-Create a local `.env` file in the project root.
+Use a strong, randomly generated JWT secret. Never commit `.env` or share its values.
 
+### Step 6: Configure MySQL
 
-
-Configure the database connection details and JWT secret using the variable names expected by the application.
-
-
-
-Never commit this file or share its secret values.
-
-
-
-\### Step 6: Configure MySQL
-
-
-
-Create the MySQL database:
-
-
+Create the application database:
 
 ```sql
-
-CREATE DATABASE flight\_system;
-
+CREATE DATABASE flight_system;
 ```
 
+Create the required application tables and populate the database with the flight and reference data expected by the application.
 
+The application uses the following database tables:
 
-Create and populate the required tables using the database schema for this application.
+- users
+- passengers
+- airports
+- flights
+- bookings
+- payments
 
+Configure the database credentials in `.env` before starting the backend.
 
+### Step 7: Install and start Ollama
 
-Ensure that the database connection settings in `.env` match your local MySQL configuration.
+Install Ollama from:
 
+https://ollama.com/
 
-
-\### Step 7: Start the Backend
-
-
+Download the configured language model:
 
 ```bash
+ollama pull qwen3:1.7b
+```
 
+Ensure the Ollama local service is running. The application uses:
+
+```text
+http://localhost:11434
+```
+
+The RAG pipeline and AI flight agent use the local Qwen3 model.
+
+### Step 8: Build the knowledge-base vector index
+
+From the project root, run:
+
+```bash
+python knowledge_base/build_embeddings.py
+```
+
+This generates the embedding vectors and FAISS index from the travel knowledge documents.
+
+The Sentence Transformer model is downloaded when first needed.
+
+### Step 9: Start the FastAPI backend
+
+```bash
 uvicorn app.main:app --reload
-
 ```
 
-
-
-The backend will run at:
-
-
+Backend address:
 
 ```text
-
 http://127.0.0.1:8000
-
 ```
 
+### Step 10: Open API documentation
 
-
-\### Step 8: Access API Documentation
-
-
-
-Open the following address in your browser:
-
-
+Visit:
 
 ```text
-
 http://127.0.0.1:8000/docs
-
 ```
 
+Swagger UI provides interactive API documentation and testing.
 
+### Step 11: Start the frontend
 
-Swagger UI provides interactive documentation for exploring and testing the API endpoints.
+Open the `frontend` folder using Visual Studio Code and launch `index.html` with Live Server.
 
-
-
-\### Step 9: Start the Frontend
-
-
-
-Open the `frontend` folder in Visual Studio Code and launch `index.html` using the Live Server extension.
-
-
-
-The frontend is configured for:
-
-
+The configured frontend address is:
 
 ```text
-
 http://localhost:5500
-
 ```
 
+## 9. API Modules
 
+| Module | Endpoint | Functionality |
+|---|---|---|
+| Authentication | `/auth/register` | User registration |
+| Authentication | `/auth/login` | User login |
+| Authentication | `/auth/me` | Current authenticated user |
+| Flights | `/flights/` | Retrieve flights |
+| Flights | `/flights/search` | Search flights |
+| Bookings | `/bookings/` | Create booking |
+| Bookings | `/bookings/my` | Booking history |
+| Bookings | `/bookings/cancel/{booking_id}` | Cancel booking |
+| Payments | `/payments/` | Simulated payment |
+| AI Assistant | `/assistant/ask` | Ask travel questions |
+| AI Agent | `/agent/ask` | Natural-language flight search |
+| Application | `/health` | Backend/database health check |
 
-\## 🔌 9. API Modules
+Consult `/docs` for the exact request schemas and available operations.
 
+## 10. Testing
 
+The project uses Pytest for automated backend testing.
 
-The backend provides the following API modules:
+The test suite covers:
 
+- Application and health endpoints.
+- User registration and authentication.
+- Flight search.
+- Booking operations.
+- Payment operations.
+- AI assistant responses.
+- AI agent responses.
+- Input validation and error handling.
 
+Run the complete test suite from the project root:
 
-| Module | Functionality |
+```bash
+python -m pytest -q
+```
 
-|---|---|
+The project has reached **35 passing automated tests** at the latest recorded test run.
 
-| Authentication | Registration, login, current user |
+A separate test database, `flight_system_test`, is used by the test configuration to isolate automated tests from the application database.
 
-| Flights | Flight listing and searching |
+A Postman collection is included in the `postman/` directory for API validation.
 
-| Bookings | Reservation, history, cancellation |
+## 11. Security and Reliability
 
-| Payments | Simulated payment processing |
+Implemented safeguards include:
 
+- Argon2 password hashing.
+- JWT authentication.
+- Parameterized SQL queries.
+- Input validation using Pydantic.
+- Booking and payment ownership checks.
+- Database transactions and row locking for booking operations.
+- Restricted CORS origin for the local frontend.
+- Environment-based secret configuration.
+- Controlled AI tool allowlisting and argument validation.
+- No autonomous AI booking, payment, or cancellation actions.
+- Isolated automated test database.
 
+## 12. Project Limitations
 
-Interactive API documentation is available at `/docs`.
+- Flight information is sample project data, not live airline schedules.
+- No external airline reservation API is integrated.
+- Payments are simulated; no real payment gateway is connected.
+- The AI assistant answers from the available knowledge base and cannot guarantee current airline-specific policies.
+- The AI agent is limited to its explicitly permitted tools.
+- Passenger records do not currently have an authenticated-user ownership relationship; passenger ID validation should not be interpreted as passenger-record ownership verification.
+- Local AI generation depends on Ollama and the available system hardware.
+- Cloud deployment is not yet implemented.
 
+## 13. Future Enhancements
 
+- Deployment using eligible free or student Azure resources.
+- Expanded travel knowledge base.
+- Improved retrieval evaluation and answer-quality monitoring.
+- Additional flight-search capabilities.
+- Enhanced frontend experience.
+- More automated integration and security tests.
+- Expanded documentation and architecture diagrams.
 
-\## 🔐 10. Security Considerations
+## 14. Developer
 
+**Project:** AI-Powered Smart Flight Reservation and Travel Intelligence Platform
 
+**GitHub:** https://github.com/lubnat-git
 
-\- Passwords are hashed using Argon2.
+---
 
-\- JWT tokens protect authenticated endpoints.
-
-\- Booking ownership is validated.
-
-\- Payment ownership is validated.
-
-\- Database queries use parameterized SQL.
-
-\- Environment variables are used for sensitive configuration.
-
-\- Secrets and virtual environments are excluded through `.gitignore`.
-
-
-
-\## 🚀 11. Future Enhancements
-
-
-
-\- Generative AI travel assistant.
-
-\- RAG-based travel knowledge retrieval.
-
-\- Semantic search using embeddings.
-
-\- Vector database integration.
-
-\- Agentic AI for intelligent flight search.
-
-\- Automated backend testing using Pytest.
-
-\- API testing using Postman.
-
-\- Cloud deployment using eligible Azure resources.
-
-\- Improved documentation and architecture diagrams.
-
-
-
-\## ⚠️ 12. Project Limitations
-
-
-
-\- Flight schedules and airline details currently represent sample project data, not live airline schedules.
-
-\- No external airline booking API is connected.
-
-\- Payments are simulated.
-
-\- AI assistant and agentic capabilities are planned, not yet implemented.
-
-\- Cloud deployment is planned.
-
-
-
-\## 👩‍💻 13. Developer
-
-
-
-\*\*Project:\*\* AI-Powered Smart Flight Reservation System
-
-
-
-\*\*GitHub:\*\* https://github.com/lubnat-git
-
-
-
-\---
-
-
-
-⭐ This project is being developed as a portfolio project to demonstrate backend development, database integration, secure API design, web application development, and practical AI integration.
-
-
-
+This project demonstrates practical Python backend development, REST API design, database integration, secure application workflows, automated testing, Retrieval-Augmented Generation, and controlled Agentic AI integration.
