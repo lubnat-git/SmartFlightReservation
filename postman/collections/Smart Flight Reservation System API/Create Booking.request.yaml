@@ -1,0 +1,18 @@
+$kind: http-request
+description: ""
+url: http://127.0.0.1:8000/bookings
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"flight_id\": 1,\r
+
+    \  \"passenger_id\": 1\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_12xp}}"
+order: 8000

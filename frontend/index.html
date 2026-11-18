@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,6 +41,10 @@
 
         <button type="button" onclick="document.getElementById('payment').scrollIntoView()">
             Payment
+        </button>
+
+        <button type="button" onclick="document.getElementById('assistant').scrollIntoView()">
+            AI Travel Assistant
         </button>
     </nav>
 
@@ -197,6 +202,76 @@
     </section>
 
 
+    <!-- AI TRAVEL ASSISTANT -->
+
+    <section id="assistant">
+
+        <h2>AI Travel Assistant</h2>
+
+        <p>
+            Ask questions about flight bookings, cancellations,
+            payments, baggage and travel policies.
+        </p>
+
+        <div id="chatMessages" aria-live="polite">
+
+            <div class="chat-message assistant-message">
+                Hello! I'm your AI Travel Assistant.
+                How can I help you?
+            </div>
+
+        </div>
+
+        <textarea
+            id="chatQuestion"
+            placeholder="Ask your travel question..."
+            rows="3"
+            maxlength="1000">
+        </textarea>
+
+        <button
+            type="button"
+            id="chatSendButton"
+            onclick="sendChatMessage()">
+
+            Send Message
+
+        </button>
+
+        <p id="chatStatus" role="status"></p>
+
+        <!-- AI FLIGHT SEARCH AGENT -->
+
+        <hr>
+
+        <h3>AI Flight Search Agent</h3>
+
+        <p>
+            Find flights, compare prices and get flight recommendations
+            using natural language.
+        </p>
+
+        <textarea
+            id="agentQuestion"
+            placeholder="Example: Find the cheapest flight from Delhi to Mumbai."
+            rows="3"
+            maxlength="1000">
+        </textarea>
+
+        <button
+            type="button"
+            id="agentSendButton"
+            onclick="sendAgentMessage()">
+
+            Find Flights
+
+        </button>
+
+        <div id="agentResults" aria-live="polite"></div>
+
+    </section>
+
+
     <footer>
 
         <p>Smart Flight Reservation System | 2026</p>
@@ -209,3 +284,4 @@
 </body>
 
 </html>
+s

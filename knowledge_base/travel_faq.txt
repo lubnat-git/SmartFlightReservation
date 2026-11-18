@@ -1,0 +1,100 @@
+SMART FLIGHT RESERVATION SYSTEM
+TRAVEL KNOWLEDGE BASE
+Version: 1.0
+
+========================================
+1. FLIGHT BOOKING POLICIES
+========================================
+
+Q: How can a passenger book a flight?
+A: Passengers can search flights by entering their source city and destination city. They can select an available flight and complete the booking process.
+
+Q: Can I book a flight without available seats?
+A: No. A booking can only be confirmed when seats are available.
+
+Q: Can I view my bookings?
+A: Yes. Logged-in passengers can view their booking history through their account.
+
+Q: Do I need an account to book a flight?
+A: Yes. Passengers must register and log in before making a booking.
+
+========================================
+2. BAGGAGE POLICIES
+========================================
+
+Q: How much baggage can I carry?
+A: Baggage allowances depend on the airline and ticket category. Passengers should check their airline's baggage policy before travelling.
+
+Q: Can I carry hand luggage?
+A: Most airlines permit cabin baggage subject to size and weight restrictions.
+
+Q: Are prohibited items allowed in baggage?
+A: Dangerous and restricted items are not permitted. Passengers must follow airport security regulations.
+
+========================================
+3. CANCELLATION POLICIES
+========================================
+
+Q: Can I cancel my flight booking?
+A: Passengers can request cancellation of eligible confirmed bookings through the booking management system.
+
+Q: What happens after cancellation?
+A: The booking status changes to cancelled, and the seat becomes available for other passengers.
+
+Q: Can I cancel a booking more than once?
+A: No. A booking that has already been cancelled cannot be cancelled again.
+
+========================================
+4. PAYMENT POLICIES
+========================================
+
+Q: Which payment methods are supported?
+A: The system supports UPI, card, net banking and cash as simulated payment modes.
+
+Q: Is payment processed through a real payment gateway?
+A: No. This project uses simulated payments for demonstration and testing purposes.
+
+Q: Can I pay for a cancelled booking?
+A: No. Payments are not accepted for cancelled bookings.
+
+Q: Is duplicate successful payment allowed?
+A: No. The system prevents duplicate successful payments for the same booking.
+
+========================================
+5. REFUND POLICIES
+========================================
+
+Q: How are refunds handled?
+A: Refund eligibility and amounts depend on the applicable airline and fare conditions.
+
+Q: Does the project automatically process refunds?
+A: No. Automatic refund processing is not currently implemented in this demonstration system.
+
+========================================
+6. AIRPORT AND TRAVEL FAQs
+========================================
+
+Q: When should I arrive at the airport?
+A: Passengers should generally arrive at least two hours before domestic departures and three hours before international departures. Airline and airport instructions may differ.
+
+Q: What documents should I carry?
+A: Passengers should carry valid government-issued identification and any required travel documents.
+
+Q: What happens if my flight is delayed?
+A: Passengers should check their airline's official updates for the latest departure information.
+
+Q: Can flight schedules change?
+A: Yes. Flight schedules are subject to change. Passengers should verify their flight details before departure.
+
+========================================
+7. IMPORTANT SYSTEM LIMITATIONS
+========================================
+
+- Flight data in this project is sample data.
+- The system does not connect to live airline databases.
+- Payment processing is simulated.
+- Automatic refund processing is not implemented.
+- Airline-specific baggage allowances are not stored in the system.
+- Passengers should verify official airline policies before travelling.
+
+END OF KNOWLEDGE BASE

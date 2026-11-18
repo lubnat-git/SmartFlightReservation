@@ -1,3 +1,4 @@
+
 const API_URL = "http://127.0.0.1:8000";
 
 
@@ -540,5 +541,456 @@ window.makePayment = async function () {
     }
 };
 
+
+// ==========================================
+// 8. AI TRAVEL ASSISTANT
+// ==========================================
+
+// Create and display a chat message safely.
+
+function addChatMessage(message, className) {
+
+    const chatMessages =
+        document.getElementById("chatMessages");
+
+    const messageElement = document.createElement("div");
+
+    messageElement.className = "chat-message " + className;
+
+    messageElement.textContent = message;
+
+    chatMessages.appendChild(messageElement);
+
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    return messageElement;
+}
+
+
+// Display knowledge-base source references.
+
+function addChatSources(messageElement, sources) {
+
+    if (!Array.isArray(sources) || sources.length === 0) {
+        return;
+    }
+
+    const sourcesContainer = document.createElement("div");
+
+    sourcesContainer.className = "chat-sources";
+
+    const heading = document.createElement("strong");
+
+    heading.textContent = "Sources:";
+
+    sourcesContainer.appendChild(heading);
+
+    const sourceList = document.createElement("ul");
+
+    sourceList.className = "chat-source-list";
+
+    sources.forEach(function (source) {
+
+        const listItem = document.createElement("li");
+
+        listItem.textContent = source;
+
+        sourceList.appendChild(listItem);
+
+    });
+
+    sourcesContainer.appendChild(sourceList);
+
+    messageElement.appendChild(sourcesContainer);
+}
+
+
+// Send a question to the FastAPI AI assistant.
+
+window.sendChatMessage = async function () {
+
+    const questionInput =
+        document.getElementById("chatQuestion");
+
+    const sendButton =
+        document.getElementById("chatSendButton");
+
+    const chatStatus =
+        document.getElementById("chatStatus");
+
+    const question = questionInput.value.trim();
+
+    if (!question) {
+
+        chatStatus.textContent =
+            "Please enter a travel-related question.";
+
+        return;
+    }
+
+    if (sendButton.disabled) {
+        return;
+    }
+
+    chatStatus.textContent = "";
+
+    // Display the user's question.
+
+    addChatMessage(question, "user-message");
+
+    // Show a loading message.
+
+    const loadingMessage = addChatMessage(
+        "Thinking... Please wait.",
+        "assistant-message"
+    );
+
+    sendButton.disabled = true;
+
+    sendButton.textContent = "Thinking...";
+
+    try {
+
+        const response = await fetch(API_URL + "/assistant/ask", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                question: question
+            })
+
+        });
+
+        let data;
+
+        try {
+
+            data = await response.json();
+
+        } catch (error) {
+
+            throw new Error(
+                "The server returned an invalid response."
+            );
+
+        }
+
+        if (!response.ok) {
+
+            const errorMessage =
+                typeof data.detail === "string"
+                    ? data.detail
+                    : "The AI assistant request failed.";
+
+            throw new Error(errorMessage);
+        }
+
+        // Display the AI-generated answer.
+
+        loadingMessage.textContent =
+            data.answer || "No answer was returned.";
+
+        // Display source references.
+
+        addChatSources(
+            loadingMessage,
+            data.sources
+        );
+
+        // Clear the question after a successful response.
+
+        questionInput.value = "";
+
+    } catch (error) {
+
+        console.error("AI Assistant Error:", error);
+
+        if (error instanceof TypeError) {
+
+            loadingMessage.textContent =
+                "Unable to connect to the AI assistant. " +
+                "Please check that the backend server is running.";
+
+        } else {
+
+            loadingMessage.textContent =
+                error.message || "Something went wrong. Please try again.";
+
+        }
+
+        chatStatus.textContent = "Please try again.";
+
+    } finally {
+
+        sendButton.disabled = false;
+
+        sendButton.textContent = "Send Message";
+
+        questionInput.focus();
+
+        const chatMessages =
+            document.getElementById("chatMessages");
+
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    }
+
+};
+
+
+// ==========================================
+// 9. AI FLIGHT SEARCH AGENT
+// ==========================================
+
+// Display flight recommendations and booking buttons.
+
+function displayAgentFlights(flights, resultsDiv) {
+
+    if (!Array.isArray(flights) || flights.length === 0) {
+        return;
+    }
+
+    const heading = document.createElement("h4");
+
+    heading.textContent = "Flight Recommendations";
+
+    resultsDiv.appendChild(heading);
+
+    flights.forEach(function (flight) {
+
+        const flightCard = document.createElement("div");
+
+        flightCard.style.border = "1px solid #ccc";
+        flightCard.style.padding = "15px";
+        flightCard.style.margin = "10px 0";
+        flightCard.style.borderRadius = "8px";
+
+        const details = document.createElement("p");
+
+        details.textContent =
+            "Flight: " + flight.flight_number +
+            " | Airline: " + flight.airline_name +
+            " | From: " + flight.source_city +
+            " | To: " + flight.destination_city +
+            " | Departure: " + flight.departure_time +
+            " | Arrival: " + flight.arrival_time +
+            " | Price: ₹" + flight.price +
+            " | Available Seats: " + flight.seats_available;
+
+        flightCard.appendChild(details);
+
+        const bookButton = document.createElement("button");
+
+        bookButton.type = "button";
+
+        bookButton.textContent = "Book This Flight";
+
+        bookButton.onclick = function () {
+
+            // Reuse the existing booking workflow.
+            // It checks login, passenger ID and user confirmation.
+
+            window.bookFlight(flight.flight_id);
+
+        };
+
+        flightCard.appendChild(bookButton);
+
+        resultsDiv.appendChild(flightCard);
+
+    });
+
+}
+
+
+// Send a natural-language request to the FastAPI flight agent.
+
+window.sendAgentMessage = async function () {
+
+    const questionInput =
+        document.getElementById("agentQuestion");
+
+    const sendButton =
+        document.getElementById("agentSendButton");
+
+    const resultsDiv =
+        document.getElementById("agentResults");
+
+    const question = questionInput.value.trim();
+
+    if (!question) {
+
+        resultsDiv.textContent =
+            "Please enter a flight-related request.";
+
+        return;
+    }
+
+    if (sendButton.disabled) {
+        return;
+    }
+
+    resultsDiv.textContent = "AI agent is searching for flights...";
+
+    sendButton.disabled = true;
+
+    sendButton.textContent = "Searching...";
+
+    try {
+
+        const response = await fetch(API_URL + "/agent/ask", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                question: question
+            })
+
+        });
+
+        let data;
+
+        try {
+
+            data = await response.json();
+
+        } catch (error) {
+
+            throw new Error(
+                "The server returned an invalid response."
+            );
+
+        }
+
+        if (!response.ok) {
+
+            const errorMessage =
+                typeof data.detail === "string"
+                    ? data.detail
+                    : "The AI flight agent request failed.";
+
+            throw new Error(errorMessage);
+        }
+
+        resultsDiv.innerHTML = "";
+
+        // Display the natural-language agent response.
+
+        const answer = document.createElement("p");
+
+        answer.textContent =
+            data.answer || "No response was returned by the AI agent.";
+
+        resultsDiv.appendChild(answer);
+
+        // Display the tools selected by the AI agent.
+
+        if (
+            Array.isArray(data.tools_used) &&
+            data.tools_used.length > 0
+        ) {
+
+            const toolsInfo = document.createElement("p");
+
+            toolsInfo.textContent =
+                "Tools used: " + data.tools_used.join(", ");
+
+            resultsDiv.appendChild(toolsInfo);
+
+        }
+
+        // Display flight details and booking options.
+
+        displayAgentFlights(data.flights, resultsDiv);
+
+        questionInput.value = "";
+
+    } catch (error) {
+
+        console.error("AI Flight Agent Error:", error);
+
+        if (error instanceof TypeError) {
+
+            resultsDiv.textContent =
+                "Unable to connect to the AI flight agent. " +
+                "Please check that the backend server is running.";
+
+        } else {
+
+            resultsDiv.textContent =
+                error.message || "Something went wrong. Please try again.";
+
+        }
+
+    } finally {
+
+        sendButton.disabled = false;
+
+        sendButton.textContent = "Find Flights";
+
+    }
+
+};
+
+
+// ==========================================
+// AI CHAT: ENTER KEY SUPPORT
+// ==========================================
+
+const chatQuestionInput =
+    document.getElementById("chatQuestion");
+
+if (chatQuestionInput) {
+
+    chatQuestionInput.addEventListener("keydown", function (event) {
+
+        if (event.key === "Enter" && !event.shiftKey) {
+
+            event.preventDefault();
+
+            window.sendChatMessage();
+
+        }
+
+    });
+
+}
+
+
+// ==========================================
+// AI FLIGHT AGENT: ENTER KEY SUPPORT
+// ==========================================
+
+const agentQuestionInput =
+    document.getElementById("agentQuestion");
+
+if (agentQuestionInput) {
+
+    agentQuestionInput.addEventListener("keydown", function (event) {
+
+        if (event.key === "Enter" && !event.shiftKey) {
+
+            event.preventDefault();
+
+            window.sendAgentMessage();
+
+        }
+
+    });
+
+}
+
+
+// ==========================================
+// APPLICATION STARTUP
+// ==========================================
 
 console.log("Smart Flight Reservation System loaded successfully!");

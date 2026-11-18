@@ -1,0 +1,130 @@
+[
+    {
+        "text": "Q: How can a passenger book a flight?\nA: Passengers can search flights by entering their source city and destination city. They can select an available flight and complete the booking process.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "Q: Can I book a flight without available seats?\nA: No. A booking can only be confirmed when seats are available.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "Q: Can I view my bookings?\nA: Yes. Logged-in passengers can view their booking history through their account.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "Q: Do I need an account to book a flight?\nA: Yes. Passengers must register and log in before making a booking.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "Q: How much baggage can I carry?\nA: Baggage allowances depend on the airline and ticket category. Passengers should check their airline's baggage policy before travelling.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "Q: Can I carry hand luggage?\nA: Most airlines permit cabin baggage subject to size and weight restrictions.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "Q: Are prohibited items allowed in baggage?\nA: Dangerous and restricted items are not permitted. Passengers must follow airport security regulations.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "Q: Can I cancel my flight booking?\nA: Passengers can request cancellation of eligible confirmed bookings through the booking management system.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "Q: What happens after cancellation?\nA: The booking status changes to cancelled, and the seat becomes available for other passengers.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "Q: Can I cancel a booking more than once?\nA: No. A booking that has already been cancelled cannot be cancelled again.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "Q: Which payment methods are supported?\nA: The system supports UPI, card, net banking and cash as simulated payment modes.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "Q: Is payment processed through a real payment gateway?\nA: No. This project uses simulated payments for demonstration and testing purposes.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "Q: Can I pay for a cancelled booking?\nA: No. Payments are not accepted for cancelled bookings.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "Q: Is duplicate successful payment allowed?\nA: No. The system prevents duplicate successful payments for the same booking.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "Q: How are refunds handled?\nA: Refund eligibility and amounts depend on the applicable airline and fare conditions.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "Q: Does the project automatically process refunds?\nA: No. Automatic refund processing is not currently implemented in this demonstration system.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "========================================\n6. AIRPORT AND TRAVEL FAQs\n========================================",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "Q: When should I arrive at the airport?\nA: Passengers should generally arrive at least two hours before domestic departures and three hours before international departures. Airline and airport instructions may differ.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "Q: What documents should I carry?\nA: Passengers should carry valid government-issued identification and any required travel documents.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "Q: What happens if my flight is delayed?\nA: Passengers should check their airline's official updates for the latest departure information.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "Q: Can flight schedules change?\nA: Yes. Flight schedules are subject to change. Passengers should verify their flight details before departure.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "- Flight data in this project is sample data.\n- The system does not connect to live airline databases.\n- Payment processing is simulated.\n- Automatic refund processing is not implemented.\n- Airline-specific baggage allowances are not stored in the system.\n- Passengers should verify official airline policies before travelling.",
+        "source": "travel_faq.txt"
+    },
+    {
+        "text": "1. BOOKING POLICY\nPassengers must register and log in before booking flights.\nBookings are confirmed only when seats are available.\nEach booking is associated with a passenger and a selected flight.\nPassengers can view their booking history after logging in.",
+        "source": "travel_policies.txt"
+    },
+    {
+        "text": "2. SEAT AVAILABILITY POLICY\nA seat can be allocated only when the selected flight has available seats.\nOnce a booking is confirmed, the available seat count decreases by one.\nWhen an eligible booking is cancelled, the seat is returned to availability.\nThe system prevents bookings when no seats are available.",
+        "source": "travel_policies.txt"
+    },
+    {
+        "text": "3. CANCELLATION POLICY\nPassengers can cancel eligible bookings.\nA cancelled booking cannot be cancelled again.\nAfter successful cancellation, the booking status changes to cancelled.\nThe system restores the allocated seat to the flight's available seat count.",
+        "source": "travel_policies.txt"
+    },
+    {
+        "text": "4. PAYMENT POLICY\nThe system supports the following simulated payment modes:\n- UPI\n- Card\n- Net Banking\n- Cash",
+        "source": "travel_policies.txt"
+    },
+    {
+        "text": "Payments are associated with individual bookings.\nThe system checks booking ownership before processing payment.\nCancelled bookings cannot be paid for.\nDuplicate successful payments are prevented.",
+        "source": "travel_policies.txt"
+    },
+    {
+        "text": "5. REFUND POLICY\nRefund eligibility depends on airline rules and ticket conditions.\nThe project does not currently implement automatic refund processing.\nPassengers should contact the airline for actual refund-related information.",
+        "source": "travel_policies.txt"
+    },
+    {
+        "text": "6. BAGGAGE POLICY\nBaggage allowances vary according to airline, route and ticket category.\nPassengers should verify cabin and checked baggage limits with their airline.\nRestricted and dangerous items must not be carried.\nAirport security regulations must always be followed.",
+        "source": "travel_policies.txt"
+    },
+    {
+        "text": "7. AIRPORT SECURITY POLICY\nPassengers must carry valid identification and required travel documents.\nPassengers must comply with airport security screening.\nArrival times should be confirmed with the airline or airport.",
+        "source": "travel_policies.txt"
+    },
+    {
+        "text": "8. FLIGHT INFORMATION POLICY\nFlight information in this project is fictional sample data.\nThe system does not provide live airline schedules.\nFlight times and availability should not be treated as real travel information.",
+        "source": "travel_policies.txt"
+    },
+    {
+        "text": "9. SYSTEM LIMITATIONS\nNo real payment gateway is connected.\nNo automatic refund service is connected.\nNo live airline API is connected.\nAirline-specific baggage and cancellation rules are not dynamically retrieved.",
+        "source": "travel_policies.txt"
+    }
+]
